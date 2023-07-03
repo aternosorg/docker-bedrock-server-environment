@@ -5,5 +5,5 @@ A docker image for running bedrock 1.7+ servers. This image does not include the
 ### Usage
 
 ```bash
-docker run -v /path/to/server:/server -w /server ghcr.io/aternosorg/docker-bedrock-server-environment:master ./bedrock_server
+docker run -v /path/to/server:/server -w /server ghcr.io/aternosorg/docker-bedrock-server-environment ./bedrock_server
 ```
