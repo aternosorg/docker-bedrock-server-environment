@@ -1,6 +1,6 @@
-FROM ubuntu:jammy
+FROM ubuntu:noble
 
 # Install dependencies
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y curl
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
