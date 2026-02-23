@@ -1,3 +1,4 @@
+ARG UBUNTU_VERSION
 FROM ubuntu:${UBUNTU_VERSION}
 
 # Install dependencies
