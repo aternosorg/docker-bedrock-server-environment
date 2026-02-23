@@ -14,15 +14,10 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  DEFAULT_UBUNTU_VERSION: noble
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        ubuntu_version: [bionic, focal, jammy, noble]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -54,23 +49,9 @@ jobs:
             aternos/bedrock-server-environment
             ${{ env.REGISTRY }}/${{ github.repository }}
           tags: |
-            # e.g. 'master-focal', 'master-jammy', 'master-noble'
-            type=ref,event=branch,suffix=-${{ matrix.ubuntu_version }}
-            
-            # e.g. 'v1.2.3-focal', 'v1.2.3-jammy', 'v1.2.3-noble'
-            type=ref,event=tag,suffix=-${{ matrix.ubuntu_version }}
-            
-            # e.g. 'focal', 'jammy', 'noble' (only on release)
-            type=raw,value=${{ matrix.ubuntu_version }},enable=${{ github.event_name == 'release' }}
-            
-            # e.g. 'master' (only on default ubuntu version)
-            type=ref,event=branch,enable=${{ matrix.ubuntu_version == env.DEFAULT_UBUNTU_VERSION }}
-            
-            # e.g. 'v1.2.3' (only on default ubuntu version)
-            type=ref,event=tag,enable=${{ matrix.ubuntu_version == env.DEFAULT_UBUNTU_VERSION }}
-            
-            # e.g. 'latest' (only on release and default ubuntu version)
-            type=raw,value=latest,enable=${{ matrix.ubuntu_version == env.DEFAULT_UBUNTU_VERSION && github.event_name == 'release' }}
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=raw,value=latest,enable=${{ github.event_name == 'release' }}
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -79,7 +60,5 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
-          build-args: |
-            UBUNTU_VERSION=${{ matrix.ubuntu_version }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
