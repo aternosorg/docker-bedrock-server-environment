@@ -1,4 +1,4 @@
-FROM ubuntu:noble
+FROM ubuntu:${UBUNTU_VERSION}
 
 # Install dependencies
 RUN apt-get update && \

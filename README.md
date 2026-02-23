@@ -1,6 +1,6 @@
 ## aternosorg/docker-bedrock-server-environment
 
-A docker image for running bedrock 1.7+ servers. This image does not include the bedrock server itself, you must provide it yourself.
+A docker image for running Bedrock servers. This image does not include the Bedrock server itself, you must provide it yourself.
 
 ### Usage
 
@@ -10,14 +10,14 @@ docker run -v /path/to/server:/server -w /server aternos/bedrock-server-environm
 
 ### Versions
 
-For bedrock 1.19.30 or newer use the latest image:
+Older Bedrock versions require older libraries provided by older Ubuntu versions. 
+This image builds multiple images for different Ubuntu versions, and you can specify which one to use by using the appropriate tag.
 
-```bash
-docker run -v /path/to/server:/server -w /server aternos/bedrock-server-environment ./bedrock_server
-```
+You can use either the Ubuntu version name alone or as a suffix for either a branch name or a tag name.
 
-For Bedrock 1.7-1.19.22 use the `1.0.0` tag:
-
-```bash
-docker run -v /path/to/server:/server -w /server aternos/bedrock-server-environment:1.0.0 ./bedrock_server
-```
+| Bedrock versions | Ubuntu version / tag |
+|------------------|----------------------|
+| < 1.7            | `bionic`             |
+| 1.7 - 1.19.22    | `focal`              |
+| 1.19.30 - ???    | `jammy`              |
+| \> ???           | `noble`              |
