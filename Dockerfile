@@ -18,8 +18,8 @@ RUN apt-get update && \
     cp -L /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /export/ || true && \
     cp -L /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 /export/ || true
 
-# --- STAGE 3: Final Universal Image (Noble 24.04) ---
-FROM ubuntu:noble
+# --- STAGE 3: Final Universal Image (Resolute 26.04) ---
+FROM ubuntu:resolute
 ARG TARGETARCH
 
 RUN apt-get update && \
